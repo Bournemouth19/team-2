@@ -1,0 +1,555 @@
+<link rel="stylesheet" type="text/css" href="main.css">
+<script src="libs/p5.js"></script>
+<script src="libs/addons/p5.dom.js"></script>
+
+
+<script src="manage.js"></script>
+
+    <title>Feedback</title>
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+html{
+  background:#1161ed;
+}
+
+#feedback-page{
+	text-align:center;
+}
+
+#text-feedback{
+	width: 80%;
+	padding-left: 10%;
+	padding-right: 10%;
+	background-color:white;
+	text-align:center;
+}
+@media screen and (min-aspect-ratio: 13/9)  {
+	#form-main{
+		position: relative;
+		top:-70%;
+		left: 1%;
+		width:100%;
+		float:left;
+		padding-top:30px;
+		
+	}
+}
+@media screen and (max-aspect-ratio: 13/9)  {
+	#form-main{
+		position: relative;
+		top:10%;
+		left: 1%;
+		width:100%;
+		float:left;
+		padding-top:30px;
+	}
+}
+
+
+@media screen and (min-aspect-ratio: 13/9)  {
+	#form-main1{
+		position: relative;
+		width:100%;
+		float:left;
+		padding-top:30px;
+		position: absolute; top:1500%; left: 0%;
+	}
+}
+@media screen and (max-aspect-ratio: 13/9)  {
+	#form-main1{
+		position: absolute;
+		top:1600%;
+		left: 1%;
+		width:100%;
+		padding-top:10%;	
+
+		float:left;
+	}
+}
+
+#form-div {
+	background-color:#3c3c3c;
+	padding-left:35px;
+	padding-right:35px;
+	padding-top:35px;
+	padding-bottom:50px;
+	width: 450px;
+	float: left;
+	left: 50%;
+	position: absolute;
+	margin-left: -260px;
+}
+
+.feedback-input {
+	opacity:0.9;
+	color:#0493bd;
+	font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-weight:400;
+	font-size: 18px;
+	border-radius: 0;
+	line-height: 22px;
+	background-color: #fbfbfb;
+  border: 3px solid #fbfbfb;
+	padding: 13px 13px 13px 54px;
+	margin-bottom: 10px;
+	width:100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.feedback-input:focus{
+	background: #fff;
+	box-shadow: 0;
+	border: 3px solid #3498db;
+	color: #3498db;
+	outline: none;
+  padding: 13px 13px 13px 54px;
+}
+
+.focused{
+	color:#30aed6;
+	border:#30aed6 solid 3px;
+}
+
+/* Icons ---------------------------------- */
+#name{
+	background-image: url(http://rexkirby.com/kirbyandson/images/name.svg);
+	background-size: 30px 30px;
+	background-position: 11px 8px;
+	background-repeat: no-repeat;
+}
+
+#name:focus{
+	background-image: url(http://rexkirby.com/kirbyandson/images/name.svg);
+	background-size: 30px 30px;
+	background-position: 8px 5px;
+  background-position: 11px 8px;
+	background-repeat: no-repeat;
+}
+
+#email{
+	background-image: url(http://rexkirby.com/kirbyandson/images/email.svg);
+	background-size: 30px 30px;
+	background-position: 11px 8px;
+	background-repeat: no-repeat;
+}
+
+#email:focus{
+	background-image: url(http://rexkirby.com/kirbyandson/images/email.svg);
+	background-size: 30px 30px;
+  background-position: 11px 8px;
+	background-repeat: no-repeat;
+}
+
+#comment{
+	background-image: url(http://rexkirby.com/kirbyandson/images/comment.svg);
+	background-size: 30px 30px;
+	background-position: 11px 8px;
+	background-repeat: no-repeat;
+}
+#comment2{
+	background-image: url(http://rexkirby.com/kirbyandson/images/comment.svg);
+	background-size: 30px 30px;
+	background-position: 11px 8px;
+	background-repeat: no-repeat;
+}
+
+textarea {
+	width: 100%;
+	height: 150px;
+	line-height: 150%;
+}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus {
+	background-color:white;
+}
+
+#button-blue{
+	font-family: 'Montserrat', Helvetica, Arial,  sans-serif;
+	float:left;
+	width: 100%;
+	border: #fbfbfb solid 4px;
+	cursor:pointer;
+	background-color: #3498db;
+	color:white;
+	font-size:24px;
+	padding-top:22px;
+	padding-bottom:22px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+#button-blue2{
+	font-family: 'Montserrat', Helvetica, Arial,  sans-serif;
+	float:left;
+	width: 100%;
+	border: #fbfbfb solid 4px;
+	cursor:pointer;
+	background-color: #3498db;
+	color:white;
+	font-size:24px;
+	padding-top:22px;
+	padding-bottom:22px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+#button-blue:hover{
+	background-color: rgba(0,0,0,0);
+	color: #0493bd;
+}
+	
+#button-blue2:hover{
+	background-color: rgba(0,0,0,0);
+	color: #0493bd;
+}
+.submit:hover {
+	color: #3498db;
+}
+	
+.ease {
+  border-top:3px #3c3c3c solid;
+	width: 0px;
+	height: 76px;
+	background-color: #fbfbfb;
+	-webkit-transition: .3s ease;
+	-moz-transition: .3s ease;
+	-o-transition: .3s ease;
+	-ms-transition: .3s ease;
+	transition: .3s ease;
+}
+
+.submit:hover .ease{
+  width:100%;
+  background-color:white;
+}
+
+@media only screen and (max-width: 580px) {
+	#form-div{
+		left: 3%;
+		margin-right: 3%;
+		width: 88%;
+		margin-left: 0;
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+}
+
+</style>
+
+
+
+
+<div id="nav-bg" class="btn"></div>
+<div id="toggle-btn" class="btn">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="wrapper">
+  <nav>
+    <ul>
+	  <li><a class="link" href="/profile">Home</a></li>
+      <li><a class="link" href="/profile/map/map.html">Videos</a></li>
+      <li><a class="link" href="/profile/manage/manage.html">Feedback</a></li>
+      <li><a class="link" href="/">Log out</a></li>
+    </ul>
+  </nav>
+
+
+<script>
+  const elem = document.querySelector('#nav-bg'),
+    toggleBtn = document.querySelector('#toggle-btn'),
+    elemH = elem.getBoundingClientRect().height,
+    elemW = elem.getBoundingClientRect().width;
+
+let open = false;
+let scale, offsetX, offsetY;
+
+const calculateValues = (() => {
+const w = window.innerWidth;
+const h = window.innerHeight;
+//const cssStyles = getComputedStyle(elem);
+//const offsetValue = Number(cssStyles.getPropertyValue('--offset-value'));
+const offsetValue = Number(getComputedStyle(elem).getPropertyValue('--offset-value'));
+
+//  Offsets to center the circle
+offsetX = (w/2) - (elemW/2) - offsetValue;
+offsetY = (h/2) - (elemH/2) - offsetValue;
+
+// Good old pythagoras
+const radius = Math.sqrt((Math.pow(h, 2))+(Math.pow(w, 2)));
+scale = radius/(elemW/2)/2 + .1; // Add '.1' to compensate for Safari sub pixel blur issue
+return scale;
+})
+
+
+const openMenu = () => {
+elem.style.setProperty("--translate-x", `${offsetX}px`);
+elem.style.setProperty("--translate-y", `-${offsetY}px`);
+elem.style.setProperty("--scale", scale);
+}
+const closeMenu = () => {
+elem.style.setProperty("--scale", 1);
+elem.style.setProperty("--translate-x", 0);
+elem.style.setProperty("--translate-y", 0);
+}
+const animateMenu = () => {
+open ? openMenu() : closeMenu();
+};
+
+const toggleMenu = () => {
+open = !open;
+animateMenu();
+toggleBtn.classList.toggle('shown');
+}
+
+const resizeHandler = () => { 
+window.requestAnimationFrame(() => {
+  calculateValues();
+  animateMenu();
+});
+}
+
+calculateValues();
+
+//toggleBtn.onclick = toggleMenu;
+toggleBtn.addEventListener('click', toggleMenu, false);
+window.addEventListener("resize", resizeHandler, false);
+
+</script>
+
+
+
+
+
+		<h1 id="welcome">Loading</h1>
+	
+	
+	<style>
+		@media screen and (max-aspect-ratio: 13/9)  {
+			#desc1{
+			border-bottom: 8px double;
+			width: 95%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:4%; 
+		}
+		#desc2{
+			width: 95%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc3{
+			border-bottom: 8px double;
+			width: 95%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:8%; 
+		}
+		#desc4{
+			width: 95%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc5{
+			border-bottom: 8px double;
+			width: 95%;
+			font-size: 200%;
+			position: relative
+			;
+			left: 2%;
+			padding-top:4%; 
+			top:4%;
+		}
+		#desc6{
+			width: 95%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%;
+			top:5%;
+
+		}
+		#desc7{
+			width: 90%;
+			font-size: 150%;
+			position: relative;
+			left: 5%;
+			padding-top:0%;
+			top:18%;
+
+		}
+		#desc8{
+			top: 83%;
+			width: 90%;
+			font-size: 150%;
+			position: relative;
+			left: 7%;
+			padding-top:0%;
+
+		}
+	}
+	@media screen and (min-aspect-ratio: 13/9)  {
+
+		#desc1{
+			border-bottom: 8px double;
+			width: 30%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:4%; 
+		}
+		#desc2{
+			width: 30%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc3{
+			border-bottom: 8px double;
+			width: 30%;
+			font-size: 200%;
+			position: relative;
+			left: 2%;
+			padding-top:4%; 
+		}
+		#desc4{
+			width: 30%;
+			font-size: 150%;
+			position: relative;
+			left: 2%;
+			padding-top:0%; 
+			
+		}
+		#desc5{
+			border-bottom: 8px double;
+			width: 30%;
+			font-size: 200%;
+			position: absolute;
+			left: 66%;
+			padding-top:4%; 
+			top:5%
+		}
+		#desc6{
+			width: 30%;
+			font-size: 150%;
+			position: absolute;
+			left: 66%;
+			padding-top:0%;
+			top:18%;
+
+		}
+		#desc7{
+			width: 30%;
+			font-size: 150%;
+			position: absolute;
+			left: 38.2%;
+			padding-top:0%;
+			top:4%;
+
+		}
+		#desc8{
+			top: -20%;
+			width: 60%;
+			font-size: 150%;
+			position: relative;
+			left: 38.2%;
+			padding-top:0%;
+
+		}
+
+	}
+
+	</style>
+	<div id="desc1">Tell us about your experience</div>
+	<div id="desc2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+
+	<div id="desc3">Why should you leave feedback</div>
+	<div id="desc4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+	<div id="desc5">We value your oppinion</div>
+	<div id="desc6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>
+		<div id="desc7" style="color: #fff;">Tell us what you think:</div>
+
+
+
+	<div id="form-main">
+			<div id="form-div">
+				<form class="form" id="form1">
+					
+					<p class="name" >
+						<input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Name" id="name" >
+					</p>
+					
+			 
+					<p class="text" >
+						<textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Feedback"></textarea>
+					</p>
+					
+					
+					<div class="submit">
+						<input type="button" value="ADD" id="button-blue" class="Send"/>
+						<div class="ease"></div>
+					</div>
+				</form>
+			</div>	
+
+
+			
+		
+
+			
+				<script>
+
+					document.getElementById("button-blue2").onclick = function() {Clear()};
+									
+					function Clear() {
+							document.getElementById("comment2").value = "";
+					}
+					document.getElementById("button-blue2").onmouseover = function() {Hover()};
+					
+					function Hover() {
+							
+						  document.getElementById("button-blue2").value="REMOVE";
+					
+					
+					
+					}
+					</script>
+				
+
+				<script>
+					document.getElementById("button-blue").onclick = function() {Clear1()};
+				
+					function Clear1() {
+							document.getElementById("comment").value = "";
+							document.getElementById("name").value = "";
+					}
+					document.getElementById("button-blue").onmouseover = function() {Hover1()};
+		
+					function Hover1() {
+							
+						  document.getElementById("button-blue").value="ADD";
+				
+				
+				
+					}
+					
+					</script>
