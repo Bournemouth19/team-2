@@ -162,8 +162,8 @@ app.get('/video', function(req, res) {
 
   app.post('/manageDev',manage);
   function manage(request,response){
-      
-      client.query("insert into feedback values ("+request.body.id+"','"+request.body.com+"');", (err, res) => {
+      console.log(request.body);
+      client.query("insert into feedback values ('"+request.body.id+"','"+request.body.com+"');", (err, res) => {
           if (err) {
               console.log(err.stack)
             
