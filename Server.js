@@ -67,4 +67,4 @@ function listening(){
   
 }
 
-app.use(express.static("build"));
+app.use(express.static("Home_page/colorlib-regform-7"));
