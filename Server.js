@@ -4,8 +4,31 @@ var fs = require('fs');
 
 app.listen(80,listening);
 
+var { Client } = require('pg');
+const client = new Client({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'jpmc',
+  password: '123456',
+  port: 5432,
+})
+
+client.connect();
+
+
+
+client.query("insert into users (username,password,email) values ('test','test','test');"
+, (error, results) => {
+    if (error) {
+      throw error
+    }
+    console.log(results);
+  })
+
+
+
 app.get('/video', function(req, res) {
-    const path = 'assets/sample.mp4'
+    const path = 'videos/video walkthrough 1 Outside (1).mp4'
     const stat = fs.statSync(path)
     const fileSize = stat.size
     const range = req.headers.range
