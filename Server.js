@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express()
 var fs = require('fs');
-
+var bodyParser = require('body-parser')
 app.listen(80,listening);
 
 var { Client } = require('pg');
@@ -15,17 +15,87 @@ const client = new Client({
 
 client.connect();
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
+// parse application/json
+app.use(bodyParser.json())
 
-client.query("insert into users (username,password,email) values ('test','test','test');"
-, (error, results) => {
-    if (error) {
-      throw error
+app.post('/register',Register);
+
+function Register(request,response){
+    console.log(request.body);
+    client.query("SELECT * FROM users ", (err, res) => {
+        if (err) {
+            console.log(err.stack)
+        } else {
+            for(var i=0;i<res.rows.length;i++){
+            if(res.rows[i].username==request.body.usr){
+                var reply={
+                    msg: 'Username aleready in use',
+                }
+                response.send(reply);
+                break;
+            }else{
+                if(i==res.rows.length-1){
+
+                client.query("INSERT INTO users VALUES ('"+request.body.usr+"','"+request.body.pas+"');", (err, res) => {
+                    if (err) {
+                      console.log(err.stack)
+                    } else {
+                      //console.log(res.rows[0])
+                }
+                })
+                var reply={
+                    msg: 'Succesfull registration',
+                }
+                response.send(reply);
+                }
+            }   
+        }
     }
-    console.log(results);
-  })
+    })
+    
+
+}
+
+app.post('/signin',Signin);
+
+function Signin(request,response){
+    //console.log(request.body);
+    client.query("SELECT * FROM users ", (err, res) => {
+        if (err) {
+          console.log(err.stack)
+        } else {
+          for(var i=0;i<res.rows.length;i++){
+            if(res.rows[i].username==request.body.usr && res.rows[i].password==request.body.pas){
+                console.log("match")
+                var reply={
+                    msg: 'sucess',
+                    usr: request.body.usr,
+                }
+                USER=request.body.usr;
+                response.send(reply);
+                break;
 
 
+            }else{
+                if(i==res.rows.length-1){
+                    respond=true;
+                    console.log("no match")
+
+                    var reply={
+                        msg: 'invalid password/username'
+                    }
+                    response.send(reply);
+                }
+            }
+          }
+    }
+    })
+
+    
+}
 
 app.get('/video', function(req, res) {
     const path = 'videos/video walkthrough 1 Outside (1).mp4'
@@ -67,4 +137,4 @@ function listening(){
   
 }
 
-app.use(express.static("Home_page/colorlib-regform-7"));
+app.use(express.static("Home_page"));
